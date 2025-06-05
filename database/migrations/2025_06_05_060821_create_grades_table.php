@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('student_id');
             $table->integer('subject_id');
             $table->integer('grade');
-            $table->dateTime('created_at');
             $table->timestamps();
         });
     }
