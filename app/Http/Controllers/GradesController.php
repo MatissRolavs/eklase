@@ -12,7 +12,8 @@ class GradesController extends Controller
      */
     public function index()
     {
-        //
+        $grades = Grades::all();
+        return view('grades.index', compact('grades'));
     }
 
     /**
@@ -20,7 +21,7 @@ class GradesController extends Controller
      */
     public function create()
     {
-        //
+        return view('grades.create');
     }
 
     /**
@@ -28,7 +29,15 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'subject_id' => 'required|exists:subjects,id',
+            'grade' => 'required|integer|between:1,100',
+        ]);
+
+        Grades::create($validatedData);
+
+        return redirect()->route('grades.index')->with('success', 'Grade created successfully.');
     }
 
     /**
@@ -36,7 +45,7 @@ class GradesController extends Controller
      */
     public function show(Grades $grades)
     {
-        //
+        return view('grades.show', compact('grades'));
     }
 
     /**
@@ -44,7 +53,7 @@ class GradesController extends Controller
      */
     public function edit(Grades $grades)
     {
-        //
+        return view('grades.edit', compact('grades'));
     }
 
     /**
@@ -52,7 +61,15 @@ class GradesController extends Controller
      */
     public function update(Request $request, Grades $grades)
     {
-        //
+        $validatedData = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'subject_id' => 'required|exists:subjects,id',
+            'grade' => 'required|integer|between:1,100',
+        ]);
+
+        $grades->update($validatedData);
+
+        return redirect()->route('grades.index')->with('success', 'Grade updated successfully.');
     }
 
     /**
@@ -60,6 +77,9 @@ class GradesController extends Controller
      */
     public function destroy(Grades $grades)
     {
-        //
+        $grades->delete();
+
+        return redirect()->route('grades.index')->with('success', 'Grade deleted successfully.');
     }
 }
+
