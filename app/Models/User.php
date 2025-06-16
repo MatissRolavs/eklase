@@ -47,4 +47,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function grades()
+{
+    return $this->hasMany(Grades::class, 'student_id');
+}
+
 }

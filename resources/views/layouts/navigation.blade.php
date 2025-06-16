@@ -12,30 +12,43 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                        {{ __('Admin') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('students.create')" :active="request()->routeIs('students.create')">
-                        {{ __('Add Student') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('subjects.create')" :active="request()->routeIs('subjects.create')">
-                        {{ __('Add Subject') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('subjects.index')">
-                        {{ __('Subjects') }}
-                    </x-nav-link>
-                </div>
+    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+        {{ __('Dashboard') }}
+    </x-nav-link>
+
+    @if(Auth::check() && Auth::user()->role === 'admin')
+        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+            {{ __('Admin') }}
+        </x-nav-link>
+    @endif
+
+    <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('subjects.index')">
+        {{ __('Subjects') }}
+    </x-nav-link>
+    <x-nav-link :href="route('students.create')" :active="request()->routeIs('students.create')">
+        {{ __('Add Student') }}
+    </x-nav-link>
+    <x-nav-link :href="route('subjects.create')" :active="request()->routeIs('subjects.create')">
+        {{ __('Add Subject') }}
+    </x-nav-link>
+
+    <x-nav-link :href="route('grades.create')" :active="request()->routeIs('grades.create')">
+    {{ __('Grade Students') }}
+</x-nav-link>
+
+
+    @if(Auth::check() && Auth::user()->role === 'teacher')
+        <x-nav-link :href="route('grades.store')" :active="request()->routeIs('grades.store')">
+            {{ __('Submit Grades') }}
+        </x-nav-link>
+    @endif
+
+    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+        {{ __('Profile') }}
+
+    </x-nav-link>
+</div>
+
                 
             </div>
 

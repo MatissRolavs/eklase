@@ -35,4 +35,7 @@ Route::get('/student/create', [StudentsController::class, 'create'])->name('stud
 Route::get('/create/subject', [SubjectsController::class, 'create'])->name('subjects.create');
 Route::post('/subject', [SubjectsController::class, 'store'])->name('subjects.store');
 Route::post('/students', [StudentsController::class, 'store'])->name('students.store');
+Route::get('/grades/create', [GradesController::class, 'create'])->name('grades.create');
+Route::post('/grades', [GradesController::class, 'store'])->name('grades.store');
+
 require __DIR__.'/auth.php';
