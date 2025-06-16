@@ -22,8 +22,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store'); //Stores new teachers!
+    Route::get('/teachers/create', [AdminController::class, 'index'])->name('admin.index');
+    Route::post('/teachers/store', [AdminController::class, 'store'])->name('admin.store'); //Stores new teachers!
 });
 
 Route::get('/subjects/{subject}', [SubjectsController::class, 'show'])->name('subjects.show');
@@ -36,5 +36,10 @@ Route::post('/subject', [SubjectsController::class, 'store'])->name('subjects.st
 Route::post('/students', [StudentsController::class, 'store'])->name('students.store');
 Route::get('/grades/create', [Grades2Controller::class, 'create'])->name('grades.create');
 Route::post('/grades', [Grades2Controller::class, 'store'])->name('grades.store');
+Route::get('/grades', [Grades2Controller::class, 'index'])->name('grades.index');
+Route::get('/grades/show', [Grades2Controller::class, 'show'])->name('grades.show');
+
+Route::post('/grades/bulk-update', [Grades2Controller::class, 'bulkUpdate'])->name('grades.bulkUpdate');
+
 
 require __DIR__.'/auth.php';

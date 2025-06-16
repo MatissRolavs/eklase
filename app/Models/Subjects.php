@@ -9,4 +9,9 @@ class Subjects extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function grades()
+    {
+        return $this->hasMany(Grades2::class, 'subject_id');
+    }
 }

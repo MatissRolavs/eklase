@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateGrades2Request;
 use App\Models\Subjects;
 use App\Models\User;
 use App\Models\Grades2;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Grades2Controller extends Controller
 {
@@ -15,7 +17,9 @@ class Grades2Controller extends Controller
      */
     public function index()
     {
-        //
+        $grades = Grades2::with(['student', 'subject'])->get();
+
+        return view('grades.index', compact('grades'));
     }
 
     /**
@@ -49,7 +53,13 @@ class Grades2Controller extends Controller
      */
     public function show(Grades2 $grades2)
     {
-        //
+        $studentId = Auth::id();
+    
+        $grades = Grades2::with('subject')
+            ->where('student_id', $studentId)
+            ->get();
+
+        return view('grades.show', compact('grades'));
     }
 
     /**
@@ -75,4 +85,29 @@ class Grades2Controller extends Controller
     {
         //
     }
+
+    public function bulkUpdate(Request $request)
+    {
+        $grades = $request->input('grades', []);
+        $deleteIds = $request->input('delete_ids', []);
+
+        // Process deletions
+        if (!empty($deleteIds)) {
+            Grades2::whereIn('id', $deleteIds)->delete();
+        }
+
+        // Process updates (ignore ones marked for deletion)
+        foreach ($grades as $id => $newGrade) {
+            if (!in_array($id, $deleteIds)) {
+                $grade = Grades2::find($id);
+                if ($grade && $grade->grade != $newGrade) {
+                    $grade->grade = $newGrade;
+                    $grade->save();
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Changes applied successfully!');
+    }
+
 }

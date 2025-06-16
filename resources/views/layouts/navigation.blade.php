@@ -18,7 +18,7 @@
 
     @if(Auth::check() && Auth::user()->role === 'admin')
         <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-            {{ __('Admin') }}
+            {{ __('Add Teacher') }}
         </x-nav-link>
     @endif
 
@@ -40,12 +40,23 @@
     {{ __('Grade Students') }}
     </x-nav-link>
     @endif
+    @if(Auth::check() && Auth::user()->role === 'teacher' || Auth::check() && Auth::user()->role === 'admin')   
+    <x-nav-link :href="route('grades.index')" :active="request()->routeIs('grades.index')">
+        {{ __('Everyones Grades') }}
+    </x-nav-link>
+    @endif
 
 
     @if(Auth::check() && Auth::user()->role === 'teacher')
         <x-nav-link :href="route('grades.store')" :active="request()->routeIs('grades.store')">
             {{ __('Submit Grades') }}
         </x-nav-link>
+    @endif
+
+    @if(Auth::check() && Auth::user()->role === 'student')   
+    <x-nav-link :href="route('grades.show')" :active="request()->routeIs('grades.show')">
+        {{ __('Grades') }}
+    </x-nav-link>
     @endif
 
     <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
