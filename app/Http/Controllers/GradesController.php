@@ -29,13 +29,18 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'student_id' => 'required|exists:students,id',
             'subject_id' => 'required|exists:subjects,id',
             'grade' => 'required|integer|between:1,100',
         ]);
 
-        Grades::create($validatedData);
+        $grades = new Grades([
+            'student_id' => $request->get('student_id'),
+            'subject_id' => $request->get('subject_id'),
+            'grade' => $request->get('grade'),
+        ]);
+        $grades->save();
 
         return redirect()->route('grades.index')->with('success', 'Grade created successfully.');
     }

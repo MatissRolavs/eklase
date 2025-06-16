@@ -7,7 +7,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Grades</th>
+               
                 </tr>
             </thead>
             <tbody>
@@ -15,7 +15,6 @@
                     <tr>
                         <td>{{ $student->name }}</td>
                         <td>
-                            
                         </td>
                     </tr>
                 @endforeach

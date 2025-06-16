@@ -50,7 +50,7 @@ class StudentsController extends Controller
             'role' => 'student',
         ]);
 
-        return redirect()->route('students.create')->with('success', 'User created successfully.');
+        return redirect()->route('dashboard')->with('success', 'User created successfully.');
     }
 
     /**
