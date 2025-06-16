@@ -19,17 +19,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($students as $student)
-                                <tr>
-                                    <td class="border px-4 py-2">{{ $student->name }}</td>
-                                    <td class="border px-4 py-2">
-                                        @php
-                                            $grade = $student->grades->where('subject_id', $subject->id)->first();
-                                        @endphp
-                                        {{ $grade ? $grade->grade : 'N/A' }}
-                                    </td>
-                                </tr>
-                            @endforeach
+                            
+                            @if(Auth::check() && Auth::user()->role === 'student')
+                                @foreach($students as $student)
+                                    @if($student->id === Auth::user()->id)
+                                        <tr>
+                                            <td class="border px-4 py-2">{{ $student->name }}</td>
+                                            <td class="border px-4 py-2">
+                                               @foreach ($grades as $grade)
+                                                    @if ($grade->student_id === $student->id && $grade->subject_id === $subject->id)
+                                                        {{ $grade->grade }}
+                                                   
+                                                    
+                                                    @endif
+                                                @endforeach 
+                                               
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @else
+                                @foreach($students as $student)
+                                    <tr>
+                                        <td class="border px-4 py-2">{{ $student->name }}</td>
+                                        <td class="border px-4 py-2">
+                                        @foreach ($grades as $grade)
+                                                    @if ($grade->student_id === $student->id && $grade->subject_id === $subject->id)
+                                                        {{ $grade->grade }}
+                                                   
+                                                   
+                                                    @endif
+                                                @endforeach 
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

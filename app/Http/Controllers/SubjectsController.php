@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subjects;
 use App\Models\User;
+use App\Models\Grades2;
 use Illuminate\Http\Request;
 
 class SubjectsController extends Controller
@@ -47,7 +48,8 @@ class SubjectsController extends Controller
     public function show(Subjects $subject)
     {
         $students = User::where('role', 'student')->get();
-        return view('subjects.show', compact('subject', 'students'));
+        $grades = Grades2::where('subject_id', $subject->id)->get();
+        return view('subjects.show', compact('subject', 'students', 'grades'));
     }
      
 

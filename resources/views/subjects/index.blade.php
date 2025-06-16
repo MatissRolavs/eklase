@@ -28,7 +28,7 @@
                             @foreach($subjects as $subject)
                                 <tr>
                                     <td class="border px-4 py-2">{{ $subject->id }}</td>
-                                    <td class="border px-4 py-2"><a href="{{ route('subjects.show', $subject->id) }}">{{ $subject->name }}</a></td>
+                                    <td class="border px-4 py-2"><a style="color: blue" href="{{ route('subjects.show', $subject->id) }}">{{ $subject->name }}</a></td>
                                  
                                 </tr>
                             @endforeach

@@ -25,16 +25,21 @@
     <x-nav-link :href="route('subjects.index')" :active="request()->routeIs('subjects.index')">
         {{ __('Subjects') }}
     </x-nav-link>
+    @if(Auth::check() && Auth::user()->role === 'teacher' || Auth::check() && Auth::user()->role === 'admin')   
     <x-nav-link :href="route('students.create')" :active="request()->routeIs('students.create')">
         {{ __('Add Student') }}
     </x-nav-link>
+    @endif
+    @if(Auth::check() && Auth::user()->role === 'teacher' || Auth::check() && Auth::user()->role === 'admin')  
     <x-nav-link :href="route('subjects.create')" :active="request()->routeIs('subjects.create')">
         {{ __('Add Subject') }}
     </x-nav-link>
-
+    @endif
+    @if(Auth::check() && Auth::user()->role === 'teacher' || Auth::check() && Auth::user()->role === 'admin')  
     <x-nav-link :href="route('grades.create')" :active="request()->routeIs('grades.create')">
     {{ __('Grade Students') }}
-</x-nav-link>
+    </x-nav-link>
+    @endif
 
 
     @if(Auth::check() && Auth::user()->role === 'teacher')
