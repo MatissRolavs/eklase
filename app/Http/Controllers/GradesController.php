@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grades;
+use App\Models\User;
+use App\Models\Subjects;
 use Illuminate\Http\Request;
 
 class GradesController extends Controller
@@ -21,7 +23,10 @@ class GradesController extends Controller
      */
     public function create()
     {
-        return view('grades.create');
+        $students = User::where('role', 'student')->get();
+
+        $subjects = Subjects::all();
+        return view('grades.create', compact('students', 'subjects'));
     }
 
     /**

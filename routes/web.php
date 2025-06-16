@@ -26,6 +26,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store'); //Stores new teachers!
 });
 Route::post('/grades', [GradesController::class, 'store'])->name('grades.store');
+Route::get('/grades/create', [GradesController::class, 'create'])->name('grades.create');
 Route::get('/subjects/{subject}', [SubjectsController::class, 'show'])->name('subjects.show');
 Route::delete('/subjects/{subject}', [SubjectsController::class, 'destroy'])->name('subjects.destroy');
 Route::get('/subjects/{subject}/edit', [SubjectsController::class, 'edit'])->name('subjects.edit');
